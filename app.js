@@ -200,8 +200,11 @@ class HugMeNowApp {
      * Load initial data and populate UI
      */
     loadInitialData() {
-        // Add user markers to map
-        this.mapManager.addUserMarkers(MOCK_USERS, this.matchingEngine);
+        // Note: In production, users would be loaded from API
+        // For now, show empty state until user completes questionnaire
+        if (MOCK_USERS.length > 0) {
+            this.mapManager.addUserMarkers(MOCK_USERS, this.matchingEngine);
+        }
 
         // Refresh matches
         this.refreshMatches();
@@ -209,9 +212,9 @@ class HugMeNowApp {
         // Welcome message
         setTimeout(() => {
             if (!CURRENT_USER.questionnaire) {
-                Components.showToast('Witaj! Wypełnij ankietę, aby znaleźć dopasowania', 'info');
+                Components.showToast('Witaj! Wypełnij ankietę, aby AI mogło znaleźć idealne dopasowania', 'info');
             } else {
-                Components.showToast('Witaj ponownie! Znaleziono nowe profile', 'success');
+                Components.showToast('Witaj ponownie! AI analizuje nowe profile...', 'success');
             }
         }, 1000);
     }
@@ -261,10 +264,13 @@ class HugMeNowApp {
         if (matches.length === 0) {
             matchesGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-                    <i class="fas fa-magnifying-glass" style="font-size: 4rem; color: var(--text-tertiary); margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 1rem;">Brak dopasowań</h3>
-                    <p style="color: var(--text-secondary);">
-                        Nie znaleziono użytkowników spełniających wybrane kryteria.
+                    <i class="fas fa-robot" style="font-size: 4rem; color: var(--text-tertiary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 1rem;">AI szuka dopasowań...</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                        Nasze algorytmy analizują dostępne profile. Wkrótce pojawią się dopasowania!
+                    </p>
+                    <p style="color: var(--text-tertiary); font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Więcej użytkowników = lepsze dopasowania
                     </p>
                 </div>
             `;
@@ -283,10 +289,12 @@ class HugMeNowApp {
         Components.setLoading(true);
 
         setTimeout(() => {
-            this.mapManager.addUserMarkers(MOCK_USERS, this.matchingEngine);
+            if (MOCK_USERS.length > 0) {
+                this.mapManager.addUserMarkers(MOCK_USERS, this.matchingEngine);
+            }
             this.mapManager.refresh();
             Components.setLoading(false);
-            Components.showToast('Mapa odświeżona', 'success');
+            Components.showToast('AI odświeża mapę...', 'success');
         }, 500);
     }
 

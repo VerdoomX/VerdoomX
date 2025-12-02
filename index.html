@@ -28,7 +28,20 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <i class="fas fa-heart-circle"></i>
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="15" fill="url(#logoGradient)"/>
+                        <path d="M16 10C13.79 10 12 11.79 12 14C12 16.21 13.79 18 16 18C18.21 18 20 16.21 20 14C20 11.79 18.21 10 16 10Z" fill="white"/>
+                        <path d="M10 22C10 19.79 11.79 18 14 18H18C20.21 18 22 19.79 22 22V24H10V22Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF006E"/>
+                                <stop offset="0.5" stop-color="#8338EC"/>
+                                <stop offset="1" stop-color="#3A86FF"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
                 <span>HugMeNow</span>
             </div>
             <div class="nav-menu" id="navMenu">
@@ -67,7 +80,8 @@
                 Znajdź miłość <span class="gradient-text">w pobliżu</span>
             </h1>
             <p class="hero-subtitle">
-                Inteligentne dopasowanie oparte na Twoich najgłębszych preferencjach.<br>
+                <strong>Napędzane przez AI</strong> - zaawansowane algorytmy uczenia maszynowego analizują tysiące parametrów,<br>
+                aby znaleźć idealne dopasowanie. <strong>89% skuteczności</strong> w dopasowywaniu partnerów.<br>
                 Twoja prywatność jest chroniona promieniem bezpieczeństwa 500-750m.
             </p>
             <div class="hero-cta">
@@ -82,16 +96,16 @@
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">20</div>
-                    <div class="stat-label">Aktywnych użytkowników</div>
+                    <div class="stat-number"><i class="fas fa-robot"></i></div>
+                    <div class="stat-label">AI-Powered Matching</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">89%</div>
-                    <div class="stat-label">Trafność dopasowań</div>
+                    <div class="stat-label">Skuteczność dopasowań</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">Bezpieczne</div>
+                    <div class="stat-label">Bezpieczne & Prywatne</div>
                 </div>
             </div>
         </div>
@@ -130,11 +144,49 @@
         </div>
     </section>
 
+    <!-- AI Features Section -->
+    <section id="ai-features-section" class="section ai-features-section">
+        <div class="section-header">
+            <h2 class="section-title">Dlaczego <span class="gradient-text">HugMeNow</span>?</h2>
+            <p class="section-subtitle">Zaawansowana technologia AI dla lepszych dopasowań</p>
+        </div>
+        <div class="ai-features-grid">
+            <div class="ai-feature-card">
+                <div class="ai-feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Uczenie Maszynowe</h3>
+                <p>Nasze algorytmy AI analizują setki parametrów - od preferencji seksualnych po style komunikacji - aby znaleźć idealne dopasowanie.</p>
+            </div>
+            <div class="ai-feature-card">
+                <div class="ai-feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>89% Skuteczności</h3>
+                <p>Dzięki zaawansowanym modelom predykcyjnym osiągamy 89% trafności w dopasowywaniu partnerów. To ponad 3x więcej niż tradycyjne aplikacje randkowe.</p>
+            </div>
+            <div class="ai-feature-card">
+                <div class="ai-feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Prywatność & Bezpieczeństwo</h3>
+                <p>Twoja lokalizacja jest chroniona przez fuzzing (500-750m), a wszystkie dane są szyfrowane. Twoja prywatność jest naszym priorytetem.</p>
+            </div>
+            <div class="ai-feature-card">
+                <div class="ai-feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Ciągłe Uczenie</h3>
+                <p>System uczy się z każdego dopasowania, stale poprawiając dokładność. Im więcej używasz HugMeNow, tym lepsze dopasowania otrzymujesz.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Matches Section -->
     <section id="matches-section" class="section matches-section">
         <div class="section-header">
             <h2 class="section-title">Twoje dopasowania</h2>
-            <p class="section-subtitle">Osoby, które najlepiej pasują do Twoich preferencji</p>
+            <p class="section-subtitle">Osoby, które najlepiej pasują do Twoich preferencji - wybrane przez AI</p>
         </div>
         <div class="matches-filters">
             <button class="filter-btn active" data-filter="all">
