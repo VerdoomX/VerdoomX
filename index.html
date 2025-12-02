@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HugMeNow - Portal randkowy z mapowaniem lokalizacji i inteligentnym dopasowywaniem partnerów">
+    <meta name="keywords" content="randki, dating, map, geolokalizacja, dopasowanie">
+    <title>HugMeNow - Znajdź swoją drugą połowę w pobliżu</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-heart-circle"></i>
+                <span>HugMeNow</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link active">Start</a>
+                <a href="#map-section" class="nav-link">Mapa</a>
+                <a href="#matches-section" class="nav-link">Dopasowania</a>
+                <a href="#questionnaire-section" class="nav-link">Ankieta</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon" id="themeToggle" title="Zmień motyw">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-icon" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="btn-primary" id="profileBtn">
+                    <i class="fas fa-user"></i>
+                    Profil
+                </button>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Znajdź miłość <span class="gradient-text">w pobliżu</span>
+            </h1>
+            <p class="hero-subtitle">
+                Inteligentne dopasowanie oparte na Twoich najgłębszych preferencjach.<br>
+                Twoja prywatność jest chroniona promieniem bezpieczeństwa 500-750m.
+            </p>
+            <div class="hero-cta">
+                <button class="btn-hero btn-primary" id="startQuestionnaireBtn">
+                    <i class="fas fa-clipboard-list"></i>
+                    Rozpocznij ankietę
+                </button>
+                <button class="btn-hero btn-secondary" id="exploreMapBtn">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Przeglądaj mapę
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Aktywnych użytkowników</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Trafność dopasowań</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Bezpieczne</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section" class="section map-section">
+        <div class="section-header">
+            <h2 class="section-title">Użytkownicy w Twojej okolicy</h2>
+            <p class="section-subtitle">Przeglądaj profile osób chcących się spotkać. Twoja lokalizacja jest zabezpieczona.</p>
+        </div>
+        <div class="map-container">
+            <div id="map" class="map"></div>
+            <div class="map-controls">
+                <button class="map-control-btn" id="myLocationBtn" title="Moja lokalizacja">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+                <button class="map-control-btn" id="refreshMapBtn" title="Odśwież">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: var(--accent-primary);"></div>
+                    <span>Wysokie dopasowanie</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: var(--accent-secondary);"></div>
+                    <span>Średnie dopasowanie</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: var(--text-tertiary);"></div>
+                    <span>Nowe profile</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Matches Section -->
+    <section id="matches-section" class="section matches-section">
+        <div class="section-header">
+            <h2 class="section-title">Twoje dopasowania</h2>
+            <p class="section-subtitle">Osoby, które najlepiej pasują do Twoich preferencji</p>
+        </div>
+        <div class="matches-filters">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-heart"></i>
+                Wszystkie
+            </button>
+            <button class="filter-btn" data-filter="high">
+                <i class="fas fa-star"></i>
+                Najlepsze
+            </button>
+            <button class="filter-btn" data-filter="nearby">
+                <i class="fas fa-location-dot"></i>
+                W pobliżu
+            </button>
+            <button class="filter-btn" data-filter="new">
+                <i class="fas fa-sparkles"></i>
+                Nowe
+            </button>
+        </div>
+        <div id="matchesGrid" class="matches-grid">
+            <!-- Matches will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Questionnaire Section -->
+    <section id="questionnaire-section" class="section questionnaire-section hidden">
+        <div class="questionnaire-container">
+            <div class="questionnaire-header">
+                <h2 class="questionnaire-title">Poznajmy się bliżej</h2>
+                <p class="questionnaire-subtitle">Odpowiedz szczerze, aby znaleźć idealnego partnera</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Krok 1 z 6</div>
+            </div>
+            <div class="questionnaire-content" id="questionnaireContent">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div class="questionnaire-navigation">
+                <button class="btn-secondary" id="prevBtn" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                    Wstecz
+                </button>
+                <button class="btn-primary" id="nextBtn">
+                    Dalej
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content profile-modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="profileModalBody">
+                <!-- Profile details will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-overlay" id="settingsModalOverlay"></div>
+        <div class="modal-content settings-modal-content">
+            <button class="modal-close" id="settingsModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="settings-content">
+                <h2>Ustawienia</h2>
+                <div class="settings-group">
+                    <h3>Prywatność</h3>
+                    <div class="setting-item">
+                        <label>
+                            <span>Pokaż moją lokalizację</span>
+                            <input type="checkbox" id="showLocationToggle" checked>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <span>Maksymalny dystans (km)</span>
+                            <input type="range" id="maxDistanceRange" min="1" max="50" value="10">
+                            <span id="maxDistanceValue">10 km</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Powiadomienia</h3>
+                    <div class="setting-item">
+                        <label>
+                            <span>Nowe dopasowania</span>
+                            <input type="checkbox" id="notifyMatchesToggle" checked>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <span>Wiadomości</span>
+                            <input type="checkbox" id="notifyMessagesToggle" checked>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Ładowanie...</p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-indicator-bar" id="scrollIndicatorBar"></div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="config.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/matching.js"></script>
+    <script src="js/questionnaire.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

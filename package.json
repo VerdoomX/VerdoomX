@@ -1,0 +1,19 @@
+{
+  "name": "hugmenow",
+  "version": "1.0.0",
+  "description": "HugMeNow - Portal randkowy z mapowaniem lokalizacji i inteligentnym dopasowywaniem partnerów",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "dating",
+    "matchmaking",
+    "geolocation",
+    "map"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
