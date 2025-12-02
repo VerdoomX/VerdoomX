@@ -1,5 +1,6 @@
 // Mock Data for HugMeNow
-// Intimate questionnaire responses and user profiles
+// Przykładowe profile użytkowników do demonstracji funkcjonalności
+// W produkcji profile będą ładowane z backend API
 
 const MOCK_USERS = [
     {
